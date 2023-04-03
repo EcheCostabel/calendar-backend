@@ -12,6 +12,10 @@ const getEvents = (req, res) => {
 
 const createEvent = (req, res) => {
 
+    
+
+
+
     res.json({
         ok: true,
         msg: 'createEvent'
