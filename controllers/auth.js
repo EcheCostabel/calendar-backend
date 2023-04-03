@@ -1,4 +1,4 @@
-
+const { validationResult } = require('express-validator')
 
 
 
@@ -6,16 +6,17 @@ const createUser = (req, res) => {
 
     const {name, email, password} = req.body;
 
-    if( name.length < 5) {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
         return res.status(400).json({
             ok: false,
-            msg: 'El nombre no puede ser menor a 5 letras'
-        })
+            errors: errors.mapped()
+        });
     }
 
-    res.json({
+    res.status(201).json({
       ok: true,
-      msg: 'create',
+      msg: 'registro',
       name,
       email,
       password
@@ -24,10 +25,18 @@ const createUser = (req, res) => {
 
 
 
-
 const loginUser = (req, res) => {
 
     const { email, password} = req.body;
+
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()) {
+        return res.status(400).json({
+            ok: false,
+            errors: errors.mapped()
+        });
+    }
 
     res.json({
         ok: true,
