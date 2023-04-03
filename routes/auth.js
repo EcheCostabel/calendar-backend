@@ -4,17 +4,17 @@
 
 const {Router} = require('express');
 const router = Router();
+const { createUser, loginUser, validateToken } = require('../controllers/auth');
 
 
 
-router.get('/', (req, res) => {
+router.post('/new', createUser);
 
-    console.log('/ Requerido');
-    res.json({
-        ok: true,
 
-    })
-});
+router.post('/', loginUser);
+
+
+router.get('/renew', validateToken);
 
 
 
