@@ -7,7 +7,7 @@ const { check } = require('express-validator')
 const router = Router();
 const { createUser, loginUser, validateToken } = require('../controllers/auth');
 const { imputsValidator } = require('../middlewares/imputs-validator');
-const { jwtValidator } = require('../middlewares/jwt-validator')
+const { jwtValidator } = require('../middlewares/jwt-validator');
 
 
 router.post('/new',
