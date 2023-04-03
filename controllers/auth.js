@@ -1,5 +1,5 @@
 const User = require('../models/User')
-
+const bcrypt = require('bcryptjs')
 
 
 const createUser = async(req, res) => {
@@ -16,7 +16,12 @@ const createUser = async(req, res) => {
                 msg: 'Un usuario ya existe con ese correo'
             })
         }
-         user = new User(req.body); //creo un nuevo usuario con lo que me llega en req.body
+        user = new User(req.body); //creo un nuevo usuario con lo que me llega en req.body
+
+        //Encriptar contraseña
+        const salt = bcrypt.genSaltSync();
+        user.password = bcrypt.hashSync( password, salt);
+
     
         await user.save();  // lo guardo en la base de datos de mongo
        
