@@ -8,7 +8,7 @@ const createUser = async(req, res) => {
 
     try {
         let user = await User.findOne({ email }); 
-        console.log(user)
+        
 
         if ( user ) { //si ya existe un usuario con el mismo email retorno esto
             return res.status(400).json({
@@ -43,17 +43,47 @@ const createUser = async(req, res) => {
 
 
 
-const loginUser = (req, res) => {
+const loginUser = async(req, res) => {
 
     const { email, password} = req.body;
 
+    try {
+        const user = await User.findOne({ email }); 
+        
+
+        if ( !user ) { //si NO existe un usuario con el mismo email retorno esto
+            return res.status(400).json({
+                ok: false,
+                msg: 'El usuario no existe con ese email'
+            })
+        }
+
+        //confirmar los passwords
+        const validPasword = bcrypt.compareSync(password, user.password);
+        if ( !validPasword ) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Password incorrecto'
+            })
+        }
+
+        //Generar nuestro JWT
+        
+        res.json({
+            ok: true,
+            uid: user.id,
+            name: user.name
+        })
+
+
+
+    } catch (error) {
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor comuniquese con el administrador'
+        })
+    }
  
-    res.json({
-        ok: true,
-        msg: 'login',
-        email,
-        password
-    })
 };
 
 
