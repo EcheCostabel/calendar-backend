@@ -39,12 +39,50 @@ const createEvent = async(req, res) => {
 
 
 
-const updateEvent = (req, res) => {
+const updateEvent = async(req, res) => {
 
-    res.json({
-        ok: true,
-        msg: 'updateEvent'
-    })
+    const eventId = req.params.id;
+    const uid = req.uid
+
+    try {
+        const event = await Event.findById(eventId);
+
+        if (!event) {
+            res.status(404).json({
+                ok: false,
+                msg: 'Evento no existe con ese id'
+            })
+        }
+
+        if(event.user.toString() !== uid) {
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene permiso para editar este evento'
+            })
+        }
+
+        const newEvent = {
+            ...req.body,
+            user: uid
+        }
+
+        const eventUpdated = await Event.findByIdAndUpdate(eventId, newEvent, {new: true});
+
+        res.json({
+            ok: true,
+            event: eventUpdated
+        })
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            true: false,
+            msg: 'Comuniquese con el administrador'
+        })
+    }
+
+
+    
 };
 
 
