@@ -1,10 +1,12 @@
 const Event = require('../models/Event')
 
-const getEvents = (req, res) => {
+const getEvents = async(req, res) => {
 
+    const events = await Event.find()
+                              .populate('user', 'name'); //esto es para ver de user solo el name en postman
     res.json({
         ok: true,
-        msg: 'getEvents'
+        events
     })
 };
 
