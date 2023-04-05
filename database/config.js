@@ -5,8 +5,13 @@ const dbConnection = async () => {
 
 
     try {
-       await  mongoose.connect(process.env.DB_CNN1);
-       console.log('db online');
+       await  mongoose.connect(process.env.DB_CNN1, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+         
+           
+       });
+       console.log('db online')
 
     } catch (error) {
         console.log(error);
