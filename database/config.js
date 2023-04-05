@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 
 const dbConnection = async () => {
 
 
     try {
-       await  mongoose.connect('mongodb+srv://mern_user:0JGwqdEUXej6xuUs@cluster0.7ctbvek.mongodb.net/test');
-       console.log('db online');
+       await  mongoose.connect(process.env.DB_CNN);
+       console.log(process.env.DB_CNN);
        
 
     } catch (error) {
