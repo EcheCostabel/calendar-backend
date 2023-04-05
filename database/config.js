@@ -5,9 +5,9 @@ const dbConnection = async () => {
 
 
     try {
-       await  mongoose.connect('mongodb+srv://mern_user:0JGwqdEUXej6xuUs@cluster0.7ctbvek.mongodb.net/?retryWrites=true&w=majority');
+       await  mongoose.connect('mongodb+srv://mern_user:0JGwqdEUXej6xuUs@cluster0.7ctbvek.mongodb.net/test');
        console.log('db online');
-       console.log(DB_CNN1)
+       
 
     } catch (error) {
         console.log(error);
