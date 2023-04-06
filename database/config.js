@@ -6,7 +6,12 @@ const dbConnection = async () => {
 
 
     try {
-       await  mongoose.connect(process.env.DB_CNN);
+       await  mongoose.connect(process.env.DB_CNN, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+        useFindAndModify: false
+       });
        console.log(process.env.DB_CNN);
        
 
