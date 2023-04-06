@@ -12,7 +12,7 @@ const dbConnection = async () => {
        
         
        });
-       console.log(process.env.DB_CNN);
+       console.log('db online');
        
 
     } catch (error) {
