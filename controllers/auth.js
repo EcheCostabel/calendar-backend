@@ -105,7 +105,9 @@ const validateToken = async(req, res) => {
 
     res.json({
         ok: true,
-        token
+        uid,
+        name,
+        token,
     })
 };
 
