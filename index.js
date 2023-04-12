@@ -2,6 +2,7 @@ const express = require("express");
 require('dotenv').config();
 const { dbConnection } = require('./database/config');
 const cors = require('cors');
+const bodyParser = require("body-parser");
 
 
 //Creo el servidor de express
@@ -21,7 +22,6 @@ app.use(express.static('public'));
 
 //Lectura y parseo del body
 app.use(express.json());
-
 
 //Rutas 
 app.use('/api/auth', require('./routes/auth') );
